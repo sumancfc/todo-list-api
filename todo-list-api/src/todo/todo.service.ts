@@ -12,8 +12,6 @@ export class TodoService {
   createTodo(todo: Todo): void {
     const currentMaxId = Math.max(...this.storage.map((t: Todo) => t.id), 0);
     todo.id = currentMaxId + 1;
-
-    console.log(todo.id);
     this.storage.push(todo);
   }
 }
