@@ -18,4 +18,14 @@ export class TodoService {
   findOneTodo(id: number): Todo {
     return this.storage.find((todo) => todo.id === id);
   }
+
+  updateTodo(id: number, todo: Todo): void {
+    const index = this.storage.findIndex((t) => t.id === id);
+    this.storage[index] = todo;
+  }
+
+  deleteTodo(id: number): void {
+    const index = this.storage.findIndex((t) => t.id === id);
+    this.storage.splice(index, 1);
+  }
 }

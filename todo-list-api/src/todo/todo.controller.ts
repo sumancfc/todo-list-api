@@ -6,6 +6,8 @@ import {
   Post,
   Param,
   ParseIntPipe,
+  Patch,
+  Delete,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Todo } from './todo.interface';
@@ -18,7 +20,7 @@ export class TodoController {
 
   @Get()
   findAllTodo(): Todo[] {
-    this.logger.log('Handling findAll() request...');
+    this.logger.log('Handling findAllTodo() request...');
     return this.todoService.findAllTodo();
   }
 
@@ -32,5 +34,17 @@ export class TodoController {
   findOneTodo(@Param('id', ParseIntPipe) id: number): Todo {
     this.logger.log('Find One Todo Request...');
     return this.todoService.findOneTodo(id);
+  }
+
+  @Patch(':id')
+  updateTodo(@Param('id', ParseIntPipe) id: number, @Body() todo: Todo): void {
+    this.logger.log('Handling updateTodo() request...');
+    return this.todoService.updateTodo(id, todo);
+  }
+
+  @Delete(':id')
+  deleteTodo(@Param('id', ParseIntPipe) id: number): void {
+    this.logger.log('Handling deleteTodo() request...');
+    return this.todoService.deleteTodo(id);
   }
 }
