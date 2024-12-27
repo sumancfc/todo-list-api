@@ -54,6 +54,64 @@ app.post("/todo", async (req: Request, res: Response) => {
   res.status(201).json(newTodo);
 });
 
+// Get all todos
+app.get("/todos", async (req: Request, res: Response) => {
+  const todos = await readTodos();
+  res.status(200).json(todos);
+});
+
+// Get todo by id
+app.get("/todo/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const todos = await readTodos();
+
+  const todo = todos.find((t) => t.id === parseInt(id));
+
+  if (!todo) {
+    res.status(404).json({ message: "Todo not found" });
+    return;
+  }
+
+  res.status(200).json(todo);
+});
+
+// Update todo by id
+app.put("/todo/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { title, completed } = req.body;
+
+  const todos = await readTodos();
+  const todo = todos.find((t) => t.id === parseInt(id));
+
+  if (!todo) {
+    res.status(404).json({ message: "Todo not found" });
+    return;
+  }
+
+  todo.title = title ?? todo.title;
+  todo.completed = completed ?? todo.completed;
+
+  await saveTodos(todos);
+  res.json(todo);
+});
+
+// Delete todo
+app.delete("/todo/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  let todos = await readTodos();
+  const initialLength = todos.length;
+
+  todos = todos.filter((t) => t.id !== parseInt(id));
+
+  if (todos.length < initialLength) {
+    await saveTodos(todos);
+    res.status(200).json({ message: `Id number ${id} todo's deleted` });
+  } else {
+    res.status(404).json({ message: "Todo not found" });
+  }
+});
+
 // Start the server and initialize data file
 app.listen(port, async () => {
   await initializeDataFile();
