@@ -1,0 +1,38 @@
+{
+  "name": "todo-api-express-typescript",
+  "version": "1.0.0",
+  "description": "Simple Todo Api with Node, Express and TypeScript",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sumancfc/todo-list-api.git"
+  },
+  "keywords": [
+    "Node",
+    "Express",
+    "TypeScript",
+    "Nest",
+    "MongoDB",
+    "API"
+  ],
+  "author": "Suman Shrestha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sumancfc/todo-list-api/issues"
+  },
+  "homepage": "https://github.com/sumancfc/todo-list-api#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.2"
+  }
+}
